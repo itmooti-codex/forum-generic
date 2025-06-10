@@ -239,6 +239,7 @@ $(document).on("click", "#delete-confirm", function () {
     });
 });
 async function createForumToSubmit(depthOfForum, forumType, formElementId, uidParam){
+  depthOfForum = Number(depthOfForum);
   const computedType = depthOfForum === 0 ? 'Post' : depthOfForum === 1 ? 'Comment' : 'Reply';
   forumType = forumType || computedType;
   console.log("Creating forum with depth:", depthOfForum, "and type:", forumType);
@@ -316,7 +317,7 @@ async function createForumToSubmit(depthOfForum, forumType, formElementId, uidPa
           profile_image: state.currentUser?.profile_image || DEFAULT_AVATAR,
         };
       }
-      const nodeDepth = raw.depth ?? depthOfForum;
+      const nodeDepth = Number(raw.depth ?? depthOfForum);
       const newNode = mapItem(raw, nodeDepth);
       newNode.isCollapsed = false;
 
