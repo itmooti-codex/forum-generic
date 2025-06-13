@@ -32,7 +32,7 @@ No build step is needed—serving the static files is enough to run the forum lo
 
 ## Configuration
 
-Create a `src/config.js` file or provide the values as environment variables when bundling. A template is available at `src/config.example.js`.
+Copy `src/config.example.js` to `src/config.js` and replace the placeholder values with your own configuration. Alternatively you can provide these values via environment variables when bundling.
 
 ### Fields
 
@@ -42,4 +42,4 @@ Create a `src/config.js` file or provide the values as environment variables whe
 - **HTTP_ENDPOINT** – URL of the GraphQL HTTP endpoint.
 - **WS_ENDPOINT** – GraphQL WebSocket endpoint for real-time updates. Typically the same host as `HTTP_ENDPOINT` using `wss://` and appending `?apiKey=YOUR_API_KEY`.
 
-When running in the browser without a bundler, copy `src/config.example.js` to `src/config.js` and fill in your actual values. The repository's `.gitignore` already excludes `src/config.js` so your secrets stay out of version control.
+When running in the browser without a bundler, ensure you have a `src/config.js` file copied from `src/config.example.js` with your real values. The repository's `.gitignore` already excludes `src/config.js` so your secrets stay out of version control.
