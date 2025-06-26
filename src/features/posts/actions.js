@@ -22,6 +22,7 @@ import { ensureCurrentUser } from "./user.js";
 import { processContent } from "./content.js";
 import { sendNotificationsAfterPost } from "./notifications.js";
 import { getModalTree, rerenderModal } from "./postModal.js";
+import { isFeaturePostEnabled } from "../../utils/featureToggle.js";
 
 function getImageOrientation(file) {
   return new Promise((resolve) => {
@@ -124,9 +125,11 @@ export async function createForumToSubmit(
 
   if (forumType === "Post") {
     payload.forum_tag = GLOBAL_PAGE_TAG;
+    payload.featured_forum = isFeaturePostEnabled();
   } else {
     payload.parent_forum_id = parentForumId || null;
     payload.forum_tag = GLOBAL_PAGE_TAG;
+    payload.featured_forum = false;
   }
 
   editor.find("span.mention").each(function () {
