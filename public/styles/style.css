@@ -290,7 +290,8 @@ button:not(.file-preview button):hover {
 }
 
 .mention {
-  background-color: #e4e6eb;
+  /* background-color: #e4e6eb; */
+    color: var(--color-primary);
   padding: 0 0.25rem;
   border-radius: 0.25rem;
 }
@@ -508,7 +509,6 @@ button:not(.file-preview button):hover {
 .tribute-container {
   max-height: 150px !important;
 }
-/* added below css for custom loader */
 
 .loading-state {
   position: fixed;
@@ -526,7 +526,7 @@ button:not(.file-preview button):hover {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 10px solid #ddd;
+  border: 1px solid #ddd;
   border-top-color: orange;
   animation: loading 1s linear infinite;
 }
@@ -541,7 +541,7 @@ button:not(.file-preview button):hover {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 10px solid #ddd;
+  border: 1px solid #ddd;
   border-top-color: orange;
   animation: loading 1s linear infinite;
 }
@@ -552,4 +552,3 @@ button:not(.file-preview button):hover {
   }
 }
 
-/* added css above for the custom loader. */

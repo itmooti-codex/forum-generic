@@ -637,7 +637,7 @@ class="max-w-[700px] max-[700px]:!w-full bg-[#f1f1f1] flex flex-col items-center
         <div
           class="flex min-h-32 transtion-all border-[1px] hover:border-[var(--color-primary)] resize-y flex-col items-start justify-center gap-4 self-stretch rounded-xl bg-[var(--grey-300)] px-3 py-2 focus-within:border focus-within:border-[var(--color-primary)]">
 
-        <div contenteditable="true" id="post-editor" class="flex-1 justify-start self-stretch p2 outline-none editor resize-y">
+        <div contenteditable="true" id="post-editor" class="flex-1 justify-start self-stretch p3 outline-none editor resize-y">
 
         </div>
 
@@ -1667,9 +1667,6 @@ data-uid="{{:uid}}"
 
 {{/if}}
 
-
-
-
 <div
   class="item {{if depth ===1}}mb-6{{else depth > 1}} mb-4 {{else}}{{/if}}
       {{if depth === 1}}commentContainer commentContainer_{{:uid}} {{/if}} {{if depth === 1 && children.length}}has-replies{{/if}} {{if depth === 1 && isCollapsed}}is-collapsed{{/if}}"
@@ -1856,6 +1853,7 @@ data-uid="{{:uid}}"
         </div>
 
 </div>
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
@@ -1870,9 +1868,7 @@ data-uid="{{:uid}}"
     }, 1000);
   });
 
-
 </script>
 
 </body>
-
 </html>

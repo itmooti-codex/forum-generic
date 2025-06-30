@@ -53,7 +53,7 @@ export function initCommentHandlers() {
 
     <div class=" comment-form   w-full">
   <div class="flex w-full min-h-32 transtion-all border-[1px] hover:border-[var(--color-primary)] resize-y flex-col items-end justify-end gap-4 rounded-xl bg-[var(--grey-300)] px-3 py-2 focus-within:border focus-within:border-[var(--color-primary)]">
-      <div contenteditable="true" id="editor" data-placeholder="${placeholder}" class="p2 editor flex-1 resize-y justify-start self-stretch outline-none">${mentionHtml}</div>
+      <div contenteditable="true" id="editor" data-placeholder="${placeholder}" class="p3 editor flex-1 resize-y justify-start self-stretch outline-none">${mentionHtml}</div>
     <div class="flex w-full items-center justify-between">
     ${toolbarDesign}
     <div class="flex items-center gap-2">
