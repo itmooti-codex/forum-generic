@@ -33,10 +33,10 @@ export const SUB_ID = "forum-subscription";
 export const NOTIF_SUB_ID = "notification-subscription";
 export const KEEPALIVE_MS = 80000;
 export const MAX_BACKOFF = 30000;
-export const INACTIVITY_MS = 10 * 60 * 1000; 
+export const INACTIVITY_MS = 10 * 60 * 1000;
 export let GLOBAL_AUTHOR_ID = '';
 export let GLOBAL_AUTHOR_DISPLAY_NAME = "Eduflow Pro";
-export let GLOBAL_PAGE_TAG ="Demo_Forum";
+export let GLOBAL_PAGE_TAG = "Demo_Forum";
 export function setGlobals(authorId, pageTag, displayName) {
   GLOBAL_AUTHOR_ID = Number(authorId);
   GLOBAL_AUTHOR_DISPLAY_NAME = displayName;
@@ -48,7 +48,7 @@ export const state = {
   notificationSocket: null,
   notifIsConnecting: false,
   notifKeepAliveTimer: null,
-  notifBackoff :1000,
+  notifBackoff: 1000,
   allContacts: [],
   backoff: 1000,
   keepAliveTimer: null,

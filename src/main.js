@@ -149,6 +149,7 @@ $.views.helpers({
     return `${day} ${month}, ${year}, ${hours}:${minutes}`;
   }
 });
+
 export async function updateNotificationPreferences() {
   const updatePreferenceButton = document.getElementById("updatePreferenceButton");
   updatePreferenceButton.classList.add('opacity-50', 'cursor-not-allowed', 'pointer-events-none');
