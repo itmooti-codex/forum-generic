@@ -237,14 +237,14 @@ export function initNotificationEvents() {
 
     let ids = [];
 
-    if (markAll) {
-      console.log("Marking all notifications as read");
-      const elements = [];
-      targetContainers.forEach((c) => {
-        elements.push(...c.querySelectorAll("[data-announcement].unread"));
-      });
-      ids = elements.map((el) => el.getAttribute("data-announcement"));
-    } else {
+      if (markAll) {
+        console.log("Marking all notifications as read");
+        const elements = [];
+        targetContainers.forEach((c) => {
+          elements.push(...c.querySelectorAll("[data-announcement].unread"));
+        });
+        ids = elements.map((el) => el.getAttribute("data-announcement"));
+      } else {
       const unreadElements = document.querySelectorAll(".unread");
       for (const el of unreadElements) {
         if (el.contains(e.target)) {
@@ -283,6 +283,25 @@ export function initNotificationEvents() {
             el.classList.add("read");
           });
         });
+        // If the user is viewing only unread notifications and there are none
+        // left after marking all as read, switch the filter back to "all"
+        if (markAllTop) {
+          const filter = document.getElementById("notificationDropdownFilter");
+          const remaining = document
+            .getElementById("notificationContainerSocket")
+            ?.querySelectorAll(".unread").length;
+          if (filter?.__x && filter.__x.$data.selected === "unread" && remaining === 0) {
+            filter.__x.$data.selected = "all";
+          }
+        } else if (markAllPage) {
+          const filter = document.getElementById("notificationPageFilter");
+          const remaining = document
+            .getElementById("notificationContainerPage")
+            ?.querySelectorAll(".unread").length;
+          if (filter?.__x && filter.__x.$data.selected === "unread" && remaining === 0) {
+            filter.__x.$data.selected = "all";
+          }
+        }
       } else {
         document.querySelectorAll(".unread").forEach((el) => {
           if (ids.includes(el.getAttribute("data-announcement"))) {
