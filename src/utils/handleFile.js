@@ -319,7 +319,8 @@ export function getS3UploadParams(awsParam, url) {
     url = `//${window.location.host}/s/aws`;
   }
   const formData = new FormData();
-  formData.append("awsParam", JSON.stringify(awsParam));
+  //formData.append("awsParam", JSON.stringify(awsParam));
+  formData.append("awsParam", awsParam);
   return fetch(url, {
     method: "POST",
     body: formData,
