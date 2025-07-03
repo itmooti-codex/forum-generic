@@ -1,4 +1,4 @@
-# Feed Generic
+# Forum again Generic
 
 This repository contains a simple front-end application for viewing and creating forum posts. The project is entirely client-side and must be served from a local web server.
 
