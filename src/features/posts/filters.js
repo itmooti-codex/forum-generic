@@ -70,90 +70,71 @@ export function applyFilterAndRender() {
       `
     );
   } else {
-    // Preserve existing media elements to avoid reloads
-    const frames = {};
-    $container.find('.item').each(function () {
+    const map = {};
+    $container.children('.item').each(function () {
       const uid = $(this).data('uid');
-      // const f = $(this).find('iframe, video.js-player, audio.js-player');
-      // if (f.length) {
-      //   frames[uid] = f.toArray().map((el) => $(el).detach()[0]);
-      const els = [];
-      $(this)
-        .find('iframe, video.js-player, audio.js-player')
-        .each(function () {
-          const wrapper = this.closest('.plyr');
-          if (wrapper) {
-            els.push($(wrapper).detach()[0]);
-          } else {
-            els.push($(this).detach()[0]);
-          }
-        });
-      if (els.length) {
-        frames[uid] = els;
+      if (uid) map[uid] = $(this);
+    });
+
+    const frag = document.createDocumentFragment();
+    items.forEach((item) => {
+      let node = map[item.uid];
+      if (node) {
+        frag.appendChild(node[0]);
+        delete map[item.uid];
+      } else {
+        const html = renderItems([item], { inModal: false });
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        const el = temp.firstElementChild;
+        if (el) frag.appendChild(el);
       }
     });
 
-    $container.html(renderItems(items, { inModal: false }));
-
-    for (const uid in frames) {
-      const $item = $container.find(`[data-uid="${uid}"]`);
-      if ($item.length) {
-        // const newFrames = $item.find('iframe, video.js-player, audio.js-player');
-        // newFrames.each(function (idx) {
-        const newFrames = [];
-        $item
-          .find('iframe, video.js-player, audio.js-player')
-          .each(function () {
-            const wrapper = this.closest('.plyr');
-            newFrames.push(wrapper || this);
-          });
-        newFrames.forEach((node, idx) => {
-          const oldFrame = frames[uid][idx];
-          if (oldFrame) {
-            // $(this).replaceWith(oldFrame);
-            $(node).replaceWith(oldFrame);
-          }
-        });
-      }
-    }
+    Object.values(map).forEach((n) => n.remove());
+    $container.empty().append(frag);
+    requestAnimationFrame(setupPlyr);
   }
 }
 
 export function initFilterHandlers() {
-$(document).on("click", ".filter-btn", function () {
-  state.currentFilter = $(this).data("filter");
-  $(".filter-btn").removeClass("active");
-  $(this).addClass("active");
-  applyFilterAndRender();
-});
+  $(document).off("click.filterBtn");
+  $(document).on("click.filterBtn", ".filter-btn", function () {
+    state.currentFilter = $(this).data("filter");
+    $(".filter-btn").removeClass("active");
+    $(this).addClass("active");
+    applyFilterAndRender();
+  });
 
   // menu toggling handled by Alpine via :class bindings
 
-// pick a file type
-$(document).on("click", "#file-filter-menu li", function () {
-  const type = $(this).data("type");
-  state.currentFileFilter = type;
+  // pick a file type
+  $(document).off("click.fileFilter");
+  $(document).on("click.fileFilter", "#file-filter-menu li", function () {
+    const type = $(this).data("type");
+    state.currentFileFilter = type;
 
-  // update button label & active menu item
-  $("#file-filter-menu li").removeClass("active");
-  $(this).addClass("active");
+    // update button label & active menu item
+    $("#file-filter-menu li").removeClass("active");
+    $(this).addClass("active");
 
-  // close dropdown and re-render
-  applyFilterAndRender();
-});
+    // close dropdown and re-render
+    applyFilterAndRender();
+  });
 
-// pick a sort type
-$(document).on("click", "#sort-filter-menu li", function () {
-  const sort = $(this).data("sort");
-  state.currentSort = sort;
+  // pick a sort type
+  $(document).off("click.sortFilter");
+  $(document).on("click.sortFilter", "#sort-filter-menu li", function () {
+    const sort = $(this).data("sort");
+    state.currentSort = sort;
 
-  // update button label & active menu item
-  $("#sort-filter-menu li").removeClass("active");
-  $(this).addClass("active");
+    // update button label & active menu item
+    $("#sort-filter-menu li").removeClass("active");
+    $(this).addClass("active");
 
-  // close dropdown and re-render
-  applyFilterAndRender();
-});
+    // close dropdown and re-render
+    applyFilterAndRender();
+  });
 
 
 
