@@ -97,11 +97,15 @@ export function initGifPicker() {
     const $toggle = $(this);
     console.log('GIF toggle clicked:', $toggle);
     let actualInput;
-    if (document.querySelector('#create-post-modal')?.classList.contains('show')) {
-      const wrapper = document.querySelector('#create-post-modal');
-      actualInput = wrapper.querySelector('#file-input');
+    const createPostModal = document.querySelector('#create-post-modal');
+    const inCreatePost = createPostModal?.classList.contains('show');
+    if (inCreatePost) {
+      actualInput = createPostModal.querySelector('#file-input');
+      // Move the GIF modal inside the focus-trapped modal so its input can gain focus
+      $('#gif-modal').appendTo(createPostModal);
     } else {
       actualInput = document.querySelector('.comment-form').querySelector('#file-input');
+      $('#gif-modal').appendTo('body');
     }
     if (!actualInput) {
       console.error('Couldn’t find the correct file input');
