@@ -115,8 +115,11 @@ export function initGifPicker() {
     $('#gif-modal').removeClass('hidden');
     $('#gif-search-input').val('');
     // Focus the search field so typing immediately works and
-    // prevents the editor from keeping focus when the picker opens
-    $('#gif-search-input').trigger('focus');
+    // prevents the editor from keeping focus when the picker opens.
+    // Using a timeout ensures other click handlers don't steal focus.
+    setTimeout(() => {
+      $('#gif-search-input').trigger('focus');
+    }, 0);
     search();
   });
 
