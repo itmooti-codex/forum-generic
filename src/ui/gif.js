@@ -114,6 +114,9 @@ export function initGifPicker() {
 
     $('#gif-modal').removeClass('hidden');
     $('#gif-search-input').val('');
+    // Focus the search field so typing immediately works and
+    // prevents the editor from keeping focus when the picker opens
+    $('#gif-search-input').trigger('focus');
     search();
   });
 
