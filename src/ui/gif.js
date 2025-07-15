@@ -91,6 +91,9 @@ export function initGifPicker() {
   // Handle toggle click: choose input inside create-post-modal or fallback to comment-form
   $(document).on('click', '.gif-toggle', function (e) {
     e.stopPropagation();
+    // Prevent other delegated click handlers (like the rich text toolbar
+    // handler) from refocusing the editor after the modal opens
+    e.stopImmediatePropagation();
     const $toggle = $(this);
     console.log('GIF toggle clicked:', $toggle);
     let actualInput;
