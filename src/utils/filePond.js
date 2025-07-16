@@ -1,5 +1,6 @@
 import { setPendingFile, setFileTypeCheck } from '../features/uploads/handlers.js';
 import { micIcon } from '../ui/emoji.js';
+import { showToast } from '../ui/toast.js';
 FilePond.registerPlugin(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview,
@@ -223,15 +224,9 @@ export function initFilePond() {
             });
           }
 
-          const audioConstraints = isSafari ? { audio: true } : { audio: { sampleRate: 44100 } };
+          const audioConstraints = { audio: true };
 
-          const getStream = () => navigator.mediaDevices.getUserMedia(audioConstraints)
-            .catch(err => {
-              if (err.name === 'OverconstrainedError' || err.name === 'NotFoundError') {
-                return navigator.mediaDevices.getUserMedia({ audio: true });
-              }
-              throw err;
-            });
+          const getStream = () => navigator.mediaDevices.getUserMedia(audioConstraints);
 
           getStream().then((stream) => {
             mediaStream = stream;
@@ -293,12 +288,13 @@ export function initFilePond() {
                 isRecording = true;
               });
             }
-          }).catch((e) => {
-            console.error("Mic access failed:", e.name, e.message);
+            }).catch((e) => {
+              console.error("Mic access failed:", e.name, e.message);
+              showToast("Unable to access microphone. Check device settings.");
 
-            inputElement.disabled = false;
-            canvas.style.display = "none";
-          });
+              inputElement.disabled = false;
+              canvas.style.display = "none";
+            });
         }
       });
     }
