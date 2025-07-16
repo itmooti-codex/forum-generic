@@ -223,9 +223,17 @@ export function initFilePond() {
             });
           }
 
-          const audioConstraints = isSafari ? { audio: {} } : { audio: { sampleRate: 44100 } };
+          const audioConstraints = isSafari ? { audio: true } : { audio: { sampleRate: 44100 } };
 
-          navigator.mediaDevices.getUserMedia(audioConstraints).then((stream) => {
+          const getStream = () => navigator.mediaDevices.getUserMedia(audioConstraints)
+            .catch(err => {
+              if (err.name === 'OverconstrainedError' || err.name === 'NotFoundError') {
+                return navigator.mediaDevices.getUserMedia({ audio: true });
+              }
+              throw err;
+            });
+
+          getStream().then((stream) => {
             mediaStream = stream;
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioContext.createAnalyser();

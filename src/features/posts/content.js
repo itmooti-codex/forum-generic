@@ -1,3 +1,14 @@
+export function ensureTargetBlank(html = '') {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  doc.body.querySelectorAll('a').forEach(a => {
+    if (!a.getAttribute('target')) {
+      a.setAttribute('target', '_blank');
+    }
+  });
+  return doc.body.innerHTML;
+}
+
 export function processContent(rawHtml) {
   console.log("Processing content for posts/comments", rawHtml);
 
@@ -39,6 +50,9 @@ export function processContent(rawHtml) {
 
   doc.body.querySelectorAll('a').forEach(a => {
     a.classList.add('underline', 'text-[var(--color-primary)]');
+    if (!a.getAttribute('target')) {
+      a.setAttribute('target', '_blank');
+    }
   });
 
   function replaceUrls(node) {

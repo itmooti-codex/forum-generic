@@ -1,4 +1,5 @@
 import { safeArray, timeAgo, parseDate } from "../utils/formatter.js";
+import { ensureTargetBlank } from "../features/posts/content.js";
 
 function parseFileField(val) {
   if (!val) return {};
@@ -112,7 +113,7 @@ export function mapItem(raw, depth = 0, isDisabled = false) {
     authorImage: raw.Author?.profile_image || DEFAULT_AVATAR,
     createdAt,
     timeAgo: createdAt ? timeAgo(createdAt) : "",
-    content: raw.copy || "",
+    content: ensureTargetBlank(raw.copy || ""),
     upvotes: reactors.length,
     hasUpvoted: Boolean(userReaction),
     voteRecordId: userReaction?.id || null,
